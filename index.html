@@ -502,50 +502,40 @@
     // ── Build project grid from projects.js ─────────────────
     function isVideo(f) { return /\.(mp4|webm|ogg|mov)$/i.test(f); }
 
-    function buildProjects() {
-      if (typeof PROJECTS === 'undefined') {
-        console.error('projects.js not loaded — check the file exists at the root of your repo');
-        return;
-      }
+    const container = document.getElementById('projects-container');
+    PROJECTS.forEach((p, i) => {
+      const isReverse = i % 2 !== 0;
+      const imgPath   = `projects/${p.slug}/${p.leadImage}`;
+      const href      = `projects/${p.slug}/`;
 
-      const container = document.getElementById('projects-container');
-      PROJECTS.forEach((p, i) => {
-        const isReverse = i % 2 !== 0;
-        const imgPath   = `projects/${p.slug}/${p.leadImage}`;
-        const href      = `projects/${p.slug}/`;
+      const div = document.createElement('div');
+      div.className = 'project' + (isReverse ? ' reverse' : '');
 
-        const div = document.createElement('div');
-        div.className = 'project' + (isReverse ? ' reverse' : '');
+      const mediaTag = isVideo(p.leadImage)
+        ? `<video src="${imgPath}" autoplay muted loop playsinline></video>`
+        : `<img src="${imgPath}" alt="${p.title}" onerror="this.parentElement.style.background='#2a2218'" />`;
 
-        const mediaTag = isVideo(p.leadImage)
-          ? `<video src="${imgPath}" autoplay muted loop playsinline></video>`
-          : `<img src="${imgPath}" alt="${p.title}" onerror="this.parentElement.style.background='#2a2218'" />`;
+      div.innerHTML = `
+        <a href="${href}" class="project-link">
+          <div class="project-img-wrap">${mediaTag}</div>
+        </a>
+        <div class="project-info">
+          <div class="project-number">${p.number}</div>
+          <h2 class="project-title">${p.title}</h2>
+          <p class="project-desc">${p.description}</p>
+          <a href="${href}" class="project-cta">View Process →</a>
+        </div>`;
 
-        div.innerHTML = `
-          <a href="${href}" class="project-link">
-            <div class="project-img-wrap">${mediaTag}</div>
-          </a>
-          <div class="project-info">
-            <div class="project-number">${p.number}</div>
-            <h2 class="project-title">${p.title}</h2>
-            <p class="project-desc">${p.description}</p>
-            <a href="${href}" class="project-cta">View Process →</a>
-          </div>`;
+      container.appendChild(div);
+    });
 
-        container.appendChild(div);
+    // ── Scroll fade-in ──────────────────────────────────────
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add('visible');
       });
-
-      // ── Scroll fade-in (must run AFTER divs are added) ─────
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) entry.target.classList.add('visible');
-        });
-      }, { threshold: 0.1 });
-      document.querySelectorAll('.project').forEach(el => observer.observe(el));
-    }
-
-    // Run after full page load to guarantee projects.js is parsed
-    window.addEventListener('load', buildProjects);
+    }, { threshold: 0.15 });
+    document.querySelectorAll('.project').forEach(el => observer.observe(el));
 
     // ── Instagram feed ──────────────────────────────────────
     // Paste your Instagram Basic Display API token here:
