@@ -137,15 +137,15 @@
     }
     .project-link:hover .project-cta { border-color: var(--orange-bright); }
 
-    /* INSTAGRAM */
+    /* INSTAGRAM
     .instagram-section { padding: 6vw 8vw; border-top: 1px solid var(--orange-dim); }
     .instagram-header { display: flex; align-items: baseline; gap: 1.5rem; margin-bottom: 3rem; }
     .instagram-label { font-size: 0.7rem; letter-spacing: 0.35em; text-transform: uppercase; color: var(--text-meta); }
     .instagram-handle {
       font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem;
       color: var(--orange-dim); text-decoration: none; letter-spacing: 0.05em; transition: color 0.2s ease;
-    }
-    .instagram-handle:hover { color: var(--orange-bright); }
+    } */
+    /* .instagram-handle:hover { color: var(--orange-bright); }
     .instagram-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2vw; }
     .ig-placeholder {
       aspect-ratio: 1; background: var(--bg-card); border: 1px solid var(--orange-dim);
@@ -170,7 +170,7 @@
     .ig-post:hover .ig-post-overlay { opacity: 1; }
     .ig-post-caption { font-size: 0.75rem; line-height: 1.5; color: var(--text-body); display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
     .ig-token-notice { margin-top: 1.5rem; padding: 1rem 1.2rem; border: 1px solid var(--orange-dim); font-size: 0.75rem; line-height: 1.7; color: var(--text-meta); display: none; }
-    .ig-token-notice code { color: var(--orange-dim); font-family: monospace; }
+    .ig-token-notice code { color: var(--orange-dim); font-family: monospace; } */
 
     /* FOOTER */
     footer {
@@ -213,7 +213,7 @@
     <div id="projects-container"></div>
   </section>
 
-  <section class="instagram-section">
+  <!-- <section class="instagram-section">
     <div class="instagram-header">
       <span class="instagram-label">Latest</span>
       <a href="https://www.instagram.com/tactile_af" target="_blank" rel="noopener" class="instagram-handle">@tactile_af</a>
@@ -232,7 +232,7 @@
       To activate live feed: get an Instagram Basic Display API token, then open index.html,
       find <code>const IG_TOKEN = ''</code> and paste your token between the quotes.
     </div>
-  </section>
+  </section> -->
 
   <footer>
     <span>Matt Bairstow</span>
@@ -283,22 +283,22 @@
     })();
 
     // Instagram live feed — paste your token here to activate
-    const IG_TOKEN = '';
-    if (IG_TOKEN) {
-      fetch('https://graph.instagram.com/me/media?fields=id,caption,media_type,media_url,thumbnail_url,permalink&limit=2&access_token=' + IG_TOKEN)
-        .then(function(r) { return r.json(); })
-        .then(function(data) {
-          if (!data.data) return;
-          document.getElementById('ig-grid').innerHTML = data.data.map(function(post) {
-            var src = post.media_type === 'VIDEO' ? post.thumbnail_url : post.media_url;
-            return '<a href="' + post.permalink + '" target="_blank" rel="noopener" class="ig-post">' +
-              '<img src="' + src + '" alt="Instagram post" loading="lazy" />' +
-              '<div class="ig-post-overlay"><p class="ig-post-caption">' + (post.caption || '').replace(/</g,'&lt;') + '</p></div>' +
-            '</a>';
-          }).join('');
-        })
-        .catch(function() {});
-    }
+    // const IG_TOKEN = '';
+    // if (IG_TOKEN) {
+    //   fetch('https://graph.instagram.com/me/media?fields=id,caption,media_type,media_url,thumbnail_url,permalink&limit=2&access_token=' + IG_TOKEN)
+    //     .then(function(r) { return r.json(); })
+    //     .then(function(data) {
+    //       if (!data.data) return;
+    //       document.getElementById('ig-grid').innerHTML = data.data.map(function(post) {
+    //         var src = post.media_type === 'VIDEO' ? post.thumbnail_url : post.media_url;
+    //         return '<a href="' + post.permalink + '" target="_blank" rel="noopener" class="ig-post">' +
+    //           '<img src="' + src + '" alt="Instagram post" loading="lazy" />' +
+    //           '<div class="ig-post-overlay"><p class="ig-post-caption">' + (post.caption || '').replace(/</g,'&lt;') + '</p></div>' +
+    //         '</a>';
+    //       }).join('');
+    //     })
+    //     .catch(function() {});
+    // }
   </script>
 
 </body>
