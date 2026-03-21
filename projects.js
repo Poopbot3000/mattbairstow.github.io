@@ -13,42 +13,42 @@
 const PROJECTS = [
   {
     number:     '01',
-    slug:       'drumPong',
+    slug:       'drumpong',
     title:      'drumPong',
     description: 'Like pong, but with drums. Teensy and programmable LED',
     leadImage:  'img-01-01.jpg',   // first image shown on homepage + top of project page
   },
   {
     number:     '02',
-    slug:       'Anglerfish Mask',
+    slug:       'Anglerfish-Mask',
     title:      'Anglerfish Mask',
     description: 'Live performance apparel',
     leadImage:  'img-02-01.jpg',
   },
   {
     number:     '03',
-    slug:       'Trap Base',
+    slug:       'Trap-Base',
     title:      'Trap Base',
     description: 'A short line or two describing the work — materials, process, or concept. Keep it spare.',
     leadImage:  'img-03-01.jpg',
   },
   {
     number:     '04',
-    slug:       'Space Car',
+    slug:       'Space-Car',
     title:      'Space Car',
     description: 'A short line or two describing the work — materials, process, or concept. Keep it spare.',
     leadImage:  'img-04-01.jpg',
   },
   {
     number:     '05',
-    slug:       'LED Panel',
+    slug:       'LED-Panel',
     title:      'LED Panel',
     description: 'A short line or two describing the work — materials, process, or concept. Keep it spare.',
     leadImage:  'img-05-01.jpg',
   },
   {
     number:     '06',
-    slug:       'LED Cloud Sticks',
+    slug:       'LED-Cloud-Sticks',
     title:      'LED Cloud Sticks',
     description: 'A short line or two describing the work — materials, process, or concept. Keep it spare.',
     leadImage:  'img-06-01.jpg',
