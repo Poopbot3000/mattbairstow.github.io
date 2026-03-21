@@ -460,9 +460,94 @@
   </section>
 
   <!-- ── WORKS ─────────────────────────────────────────────── -->
+<!-- ── WORKS ─────────────────────────────────────────────── -->
   <section class="works">
     <p class="works-label">Selected Work</p>
-    <div id="projects-container"></div>
+
+    <div class="project visible">
+      <a href="projects/drumpong/" class="project-link">
+        <div class="project-img-wrap">
+          <img src="projects/drumpong/img-01-01.jpg" alt="drumPong" onerror="this.parentElement.style.background='#2a2218'" />
+        </div>
+      </a>
+      <div class="project-info">
+        <div class="project-number">01</div>
+        <h2 class="project-title">drumPong</h2>
+        <p class="project-desc">Like pong, but with drums. Teensy and programmable LED</p>
+        <a href="projects/drumpong/" class="project-cta">View Process →</a>
+      </div>
+    </div>
+
+    <div class="project reverse visible">
+      <a href="projects/Anglerfish-Mask/" class="project-link">
+        <div class="project-img-wrap">
+          <img src="projects/Anglerfish-Mask/img-02-01.jpg" alt="Anglerfish Mask" onerror="this.parentElement.style.background='#2a2218'" />
+        </div>
+      </a>
+      <div class="project-info">
+        <div class="project-number">02</div>
+        <h2 class="project-title">Anglerfish Mask</h2>
+        <p class="project-desc">Live performance apparel</p>
+        <a href="projects/Anglerfish-Mask/" class="project-cta">View Process →</a>
+      </div>
+    </div>
+
+    <div class="project visible">
+      <a href="projects/Trap-Base/" class="project-link">
+        <div class="project-img-wrap">
+          <img src="projects/Trap-Base/img-03-01.jpg" alt="Trap Base" onerror="this.parentElement.style.background='#2a2218'" />
+        </div>
+      </a>
+      <div class="project-info">
+        <div class="project-number">03</div>
+        <h2 class="project-title">Trap Base</h2>
+        <p class="project-desc">A short line or two describing the work.</p>
+        <a href="projects/Trap-Base/" class="project-cta">View Process →</a>
+      </div>
+    </div>
+
+    <div class="project reverse visible">
+      <a href="projects/Space-Car/" class="project-link">
+        <div class="project-img-wrap">
+          <img src="projects/Space-Car/img-04-01.jpg" alt="Space Car" onerror="this.parentElement.style.background='#2a2218'" />
+        </div>
+      </a>
+      <div class="project-info">
+        <div class="project-number">04</div>
+        <h2 class="project-title">Space Car</h2>
+        <p class="project-desc">A short line or two describing the work.</p>
+        <a href="projects/Space-Car/" class="project-cta">View Process →</a>
+      </div>
+    </div>
+
+    <div class="project visible">
+      <a href="projects/LED-Panel/" class="project-link">
+        <div class="project-img-wrap">
+          <img src="projects/LED-Panel/img-05-01.jpg" alt="LED Panel" onerror="this.parentElement.style.background='#2a2218'" />
+        </div>
+      </a>
+      <div class="project-info">
+        <div class="project-number">05</div>
+        <h2 class="project-title">LED Panel</h2>
+        <p class="project-desc">A short line or two describing the work.</p>
+        <a href="projects/LED-Panel/" class="project-cta">View Process →</a>
+      </div>
+    </div>
+
+    <div class="project reverse visible">
+      <a href="projects/LED-Cloud-Sticks/" class="project-link">
+        <div class="project-img-wrap">
+          <img src="projects/LED-Cloud-Sticks/img-06-01.jpg" alt="LED Cloud Sticks" onerror="this.parentElement.style.background='#2a2218'" />
+        </div>
+      </a>
+      <div class="project-info">
+        <div class="project-number">06</div>
+        <h2 class="project-title">LED Cloud Sticks</h2>
+        <p class="project-desc">A short line or two describing the work.</p>
+        <a href="projects/LED-Cloud-Sticks/" class="project-cta">View Process →</a>
+      </div>
+    </div>
+
   </section>
 
   <!-- Shared project data -->
@@ -503,11 +588,7 @@
     // ── Build project grid from projects.js ─────────────────
     function isVideo(f) { return /\.(mp4|webm|ogg|mov)$/i.test(f); }
 
-    function buildProjects() {
-      if (typeof PROJECTS === 'undefined') {
-        console.error('projects.js not loaded — check the file exists at the root of your repo');
-        return;
-      }
+   
 
       const container = document.getElementById('projects-container');
       PROJECTS.forEach((p, i) => {
@@ -550,8 +631,7 @@
       });
     }
 
-    // Run after full page load to guarantee projects.js is parsed
-    window.addEventListener('load', buildProjects);
+ 
 
     // ── Instagram feed ──────────────────────────────────────
     // Paste your Instagram Basic Display API token here:
