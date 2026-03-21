@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Loading… — Matt Bairstow</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #111110; --bg-card: #1a1a18;
+      --orange-bright: #e8650a; --orange-heading: #d4580a;
+      --orange-dim: #7a3205; --text-body: #a89070; --text-meta: #5a4535;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { background-color: var(--bg); color: var(--text-body); font-family: 'Barlow', sans-serif; font-weight: 300; overflow-x: hidden; }
+    body::before {
+      content: ''; position: fixed; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+      opacity: 0.045; pointer-events: none; z-index: 1000;
+    }
+    nav { padding: 2rem 8vw; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--orange-dim); }
+    .nav-home { font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; color: var(--orange-heading); text-decoration: none; letter-spacing: 0.05em; transition: color 0.2s ease; }
+    .nav-home:hover { color: var(--orange-bright); }
+    .nav-back { font-size: 0.7rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--text-meta); text-decoration: none; transition: color 0.2s ease; }
+    .nav-back:hover { color: var(--orange-bright); }
+    .project-hero { padding: 6vw 8vw 4vw; border-bottom: 1px solid var(--orange-dim); }
+    .project-meta { font-size: 0.7rem; letter-spacing: 0.35em; text-transform: uppercase; color: var(--text-meta); margin-bottom: 1.5rem; }
+    .project-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(3.5rem, 10vw, 9rem); color: var(--orange-heading); line-height: 0.9; letter-spacing: 0.02em; opacity: 0; animation: fadeUp 0.8s ease forwards 0.2s; }
+    .project-intro { max-width: 60ch; margin-top: 2.5rem; font-size: clamp(0.95rem, 1.3vw, 1.1rem); line-height: 1.8; color: var(--text-body); opacity: 0; animation: fadeUp 0.8s ease forwards 0.5s; }
+    .process { padding: 6vw 8vw; }
+    .process-label { font-size: 0.7rem; letter-spacing: 0.35em; text-transform: uppercase; color: var(--text-meta); margin-bottom: 4rem; }
+    .lead-media { width: 100%; margin-bottom: 4vw; background: var(--bg-card); }
+    .lead-media img, .lead-media video { width: 100%; object-fit: cover; display: block; filter: grayscale(20%) brightness(0.85); }
+    .lead-media img { aspect-ratio: 16/7; }
+    .lead-media video { aspect-ratio: 16/9; }
+    .process-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2vw; margin-bottom: 6rem; }
+    .media-item { background: var(--bg-card); overflow: hidden; position: relative; }
+    .media-item img { width: 100%; aspect-ratio: 4/3; object-fit: cover; display: block; filter: grayscale(20%) brightness(0.85); transition: filter 0.4s ease, transform 0.5s ease; }
+    .media-item:hover img { filter: grayscale(0%) brightness(1); transform: scale(1.03); }
+    .media-item video { width: 100%; aspect-ratio: 16/9; display: block; background: #000; }
+    .media-item.wide { grid-column: span 2; }
+    .media-item.wide img { aspect-ratio: 16/6; }
+    .media-item.wide video { aspect-ratio: 16/9; }
+    .media-item:only-child { grid-column: span 2; }
+    .media-type-badge { position: absolute; top: 0.8rem; left: 0.8rem; font-size: 0.6rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--orange-dim); background: rgba(17,17,16,0.8); padding: 0.2rem 0.5rem; pointer-events: none; }
+    .no-media { grid-column: span 2; padding: 4rem; text-align: center; border: 1px dashed var(--orange-dim); font-size: 0.75rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--text-meta); }
+    .text-block { display: grid; grid-template-columns: 1fr 2fr; gap: 6vw; padding: 4vw 0; border-top: 1px solid var(--orange-dim); }
+    .text-block-heading { font-family: 'Bebas Neue', sans-serif; font-size: clamp(1.8rem, 3vw, 2.8rem); color: var(--orange-heading); line-height: 1.1; }
+    .text-block-body { font-size: 0.95rem; line-height: 1.9; color: var(--text-body); }
+    .text-block-body p + p { margin-top: 1.2rem; }
+    footer { border-top: 1px solid var(--orange-dim); padding: 3rem 8vw; display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-meta); }
+    .footer-links { display: flex; gap: 2.5rem; justify-content: center; }
+    .footer-link { color: var(--text-meta); text-decoration: none; transition: color 0.2s ease; }
+    .footer-link:hover { color: var(--orange-bright); }
+    .footer-right { text-align: right; }
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+    @media (max-width: 700px) {
+      .process-grid { grid-template-columns: 1fr; }
+      .media-item.wide, .media-item:only-child { grid-column: span 1; }
+      .media-item.wide img { aspect-ratio: 4/3; }
+      .text-block { grid-template-columns: 1fr; gap: 1.5rem; }
+      footer { grid-template-columns: 1fr; gap: 1rem; text-align: center; }
+      .footer-links { justify-content: center; }
+      .footer-right { text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="../../index.html" class="nav-home">Matt Bairstow</a>
+    <a href="../../index.html" class="nav-back">← All Work</a>
+  </nav>
+
+  <section class="project-hero">
+    <p class="project-meta" id="project-meta"></p>
+    <h1 class="project-title" id="project-title"></h1>
+    <p class="project-intro" id="project-intro"></p>
+  </section>
+
+  <section class="process">
+    <p class="process-label">Process</p>
+    <div id="lead-container"></div>
+    <div class="process-grid" id="media-grid"></div>
+    <div class="text-block">
+      <h2 class="text-block-heading">About<br>the Work</h2>
+      <div class="text-block-body" id="about-body"></div>
+    </div>
+  </section>
+
+  <footer>
+    <span>Matt Bairstow</span>
+    <nav class="footer-links">
+      <a href="https://www.instagram.com/tactile_af" target="_blank" rel="noopener" class="footer-link">Instagram</a>
+      <a href="mailto:your@email.com" class="footer-link">Contact</a>
+    </nav>
+    <span class="footer-right">Maker · Musician · Technologist</span>
+  </footer>
+
+  <!-- Shared project data (two levels up from project subfolder) -->
+  <script src="../../projects.js"></script>
+  <script>
+    // ─────────────────────────────────────────────────────────
+    // PROJECT CONFIG — edit only this block
+    // slug must match this folder name AND the entry in /projects.js
+    // ─────────────────────────────────────────────────────────
+    const SLUG = 'project-title-one';
+
+    const ABOUT = `<p>This is where you describe the process in more depth — the materials, techniques, decisions made along the way. What problems did you encounter? What surprised you?</p>
+                   <p>A second paragraph for more conceptual detail — what does this piece mean to you? Where does it sit in your wider practice?</p>
+                   <p>A third paragraph if needed — materials list, collaborators, timeframe.</p>`;
+
+    // List media files in display order. First = lead image/video.
+    // Set wide: true to span both columns in the process grid.
+    const MEDIA = [
+      { file: 'img-01-01.jpg', wide: false },
+      { file: 'img-01-02.jpg', wide: false },
+      { file: 'img-01-03.jpg', wide: false },
+      { file: 'img-01-04.jpg', wide: true  },
+    ];
+    // ─────────────────────────────────────────────────────────
+
+    // Pull title + description from shared projects.js
+    const project = PROJECTS.find(p => p.slug === SLUG);
+    if (project) {
+      document.title = project.title + ' — Matt Bairstow';
+      document.getElementById('project-meta').textContent  = project.number + ' / Process Documentation';
+      document.getElementById('project-title').textContent = project.title;
+      document.getElementById('project-intro').textContent = project.description;
+    }
+    document.getElementById('about-body').innerHTML = ABOUT;
+
+    // Build media
+    function isVideo(f) { return /\.(mp4|webm|ogg|mov)$/i.test(f); }
+
+    const leadContainer = document.getElementById('lead-container');
+    if (MEDIA.length > 0) {
+      const first = MEDIA[0];
+      const wrap = document.createElement('div');
+      wrap.className = 'lead-media';
+      wrap.innerHTML = isVideo(first.file)
+        ? `<video src="${first.file}" autoplay muted loop playsinline></video>`
+        : `<img src="${first.file}" alt="${project ? project.title : ''} — lead" />`;
+      leadContainer.appendChild(wrap);
+    }
+
+    const grid = document.getElementById('media-grid');
+    const rest  = MEDIA.slice(1);
+    if (rest.length === 0) {
+      grid.innerHTML = `<div class="no-media">Process images and videos will appear here</div>`;
+    } else {
+      rest.forEach((item, i) => {
+        const div = document.createElement('div');
+        div.className = 'media-item' + (item.wide ? ' wide' : '');
+        div.innerHTML = isVideo(item.file)
+          ? `<span class="media-type-badge">Video</span><video src="${item.file}" controls muted playsinline preload="metadata"></video>`
+          : `<img src="${item.file}" alt="Process ${i + 1}" loading="lazy" />`;
+        grid.appendChild(div);
+      });
+    }
+  </script>
+
+</body>
+</html>
