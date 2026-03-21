@@ -537,12 +537,17 @@
       });
 
       // ── Scroll fade-in (must run AFTER divs are added) ─────
-      const observer = new IntersectionObserver((entries) => {
+     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
           if (entry.isIntersecting) entry.target.classList.add('visible');
         });
-      }, { threshold: 0.1 });
-      document.querySelectorAll('.project').forEach(el => observer.observe(el));
+      }, { threshold: 0, rootMargin: '0px 0px -50px 0px' });
+      document.querySelectorAll('.project').forEach(el => {
+        observer.observe(el);
+        // Also check if already visible on load
+        const rect = el.getBoundingClientRect();
+        if (rect.top < window.innerHeight) el.classList.add('visible');
+      });
     }
 
     // Run after full page load to guarantee projects.js is parsed
