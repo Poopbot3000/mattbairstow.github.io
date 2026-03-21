@@ -13,16 +13,16 @@
 const PROJECTS = [
   {
     number:     '01',
-    slug:       'project-title-one',
-    title:      'Project Title One',
-    description: 'A short line or two describing the work — materials, process, or concept. Keep it spare.',
+    slug:       'drumPong',
+    title:      'drumPong',
+    description: 'Like pong, but with drums. Teensy and programmable LED',
     leadImage:  'img-01-01.jpg',   // first image shown on homepage + top of project page
   },
   {
     number:     '02',
-    slug:       'project-title-two',
-    title:      'Project Title Two',
-    description: 'A short line or two describing the work — materials, process, or concept. Keep it spare.',
+    slug:       'Anglerfish Mask',
+    title:      'Anglerfish Mask',
+    description: 'Live performance apparel',
     leadImage:  'img-02-01.jpg',
   },
   {
