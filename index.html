@@ -3,65 +3,443 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Loading… — Matt Bairstow</title>
+  <title>Matt Bairstow — Maker, Musician, Technologist</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #111110; --bg-card: #1a1a18;
-      --orange-bright: #e8650a; --orange-heading: #d4580a;
-      --orange-dim: #7a3205; --text-body: #a89070; --text-meta: #5a4535;
+      --bg: #111110;
+      --bg-card: #1a1a18;
+      --orange-bright: #e8650a;
+      --orange-heading: #d4580a;
+      --orange-dim: #7a3205;
+      --text-body: #a89070;
+      --text-meta: #5a4535;
+      --grain-opacity: 0.045;
     }
+
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
-    body { background-color: var(--bg); color: var(--text-body); font-family: 'Barlow', sans-serif; font-weight: 300; overflow-x: hidden; }
-    body::before {
-      content: ''; position: fixed; inset: 0;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
-      opacity: 0.045; pointer-events: none; z-index: 1000;
+
+    body {
+      background-color: var(--bg);
+      color: var(--text-body);
+      font-family: 'Barlow', sans-serif;
+      font-weight: 300;
+      min-height: 100vh;
+      overflow-x: hidden;
     }
-    nav { padding: 2rem 8vw; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--orange-dim); }
-    .nav-home { font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; color: var(--orange-heading); text-decoration: none; letter-spacing: 0.05em; transition: color 0.2s ease; }
-    .nav-home:hover { color: var(--orange-bright); }
-    .nav-back { font-size: 0.7rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--text-meta); text-decoration: none; transition: color 0.2s ease; }
-    .nav-back:hover { color: var(--orange-bright); }
-    .project-hero { padding: 6vw 8vw 4vw; border-bottom: 1px solid var(--orange-dim); }
-    .project-meta { font-size: 0.7rem; letter-spacing: 0.35em; text-transform: uppercase; color: var(--text-meta); margin-bottom: 1.5rem; }
-    .project-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(3.5rem, 10vw, 9rem); color: var(--orange-heading); line-height: 0.9; letter-spacing: 0.02em; opacity: 0; animation: fadeUp 0.8s ease forwards 0.2s; }
-    .project-intro { max-width: 60ch; margin-top: 2.5rem; font-size: clamp(0.95rem, 1.3vw, 1.1rem); line-height: 1.8; color: var(--text-body); opacity: 0; animation: fadeUp 0.8s ease forwards 0.5s; }
-    .process { padding: 6vw 8vw; }
-    .process-label { font-size: 0.7rem; letter-spacing: 0.35em; text-transform: uppercase; color: var(--text-meta); margin-bottom: 4rem; }
-    .lead-media { width: 100%; margin-bottom: 4vw; background: var(--bg-card); }
-    .lead-media img, .lead-media video { width: 100%; object-fit: cover; display: block; filter: grayscale(20%) brightness(0.85); }
-    .lead-media img { aspect-ratio: 16/7; }
-    .lead-media video { aspect-ratio: 16/9; }
-    .process-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2vw; margin-bottom: 6rem; }
-    .media-item { background: var(--bg-card); overflow: hidden; position: relative; }
-    .media-item img { width: 100%; aspect-ratio: 4/3; object-fit: cover; display: block; filter: grayscale(20%) brightness(0.85); transition: filter 0.4s ease, transform 0.5s ease; }
-    .media-item:hover img { filter: grayscale(0%) brightness(1); transform: scale(1.03); }
-    .media-item video { width: 100%; aspect-ratio: 16/9; display: block; background: #000; }
-    .media-item.wide { grid-column: span 2; }
-    .media-item.wide img { aspect-ratio: 16/6; }
-    .media-item.wide video { aspect-ratio: 16/9; }
-    .media-item:only-child { grid-column: span 2; }
-    .media-type-badge { position: absolute; top: 0.8rem; left: 0.8rem; font-size: 0.6rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--orange-dim); background: rgba(17,17,16,0.8); padding: 0.2rem 0.5rem; pointer-events: none; }
-    .no-media { grid-column: span 2; padding: 4rem; text-align: center; border: 1px dashed var(--orange-dim); font-size: 0.75rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--text-meta); }
-    .text-block { display: grid; grid-template-columns: 1fr 2fr; gap: 6vw; padding: 4vw 0; border-top: 1px solid var(--orange-dim); }
-    .text-block-heading { font-family: 'Bebas Neue', sans-serif; font-size: clamp(1.8rem, 3vw, 2.8rem); color: var(--orange-heading); line-height: 1.1; }
-    .text-block-body { font-size: 0.95rem; line-height: 1.9; color: var(--text-body); }
-    .text-block-body p + p { margin-top: 1.2rem; }
-    footer { border-top: 1px solid var(--orange-dim); padding: 3rem 8vw; display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-meta); }
-    .footer-links { display: flex; gap: 2.5rem; justify-content: center; }
-    .footer-link { color: var(--text-meta); text-decoration: none; transition: color 0.2s ease; }
+
+    /* Grain overlay */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+      opacity: var(--grain-opacity);
+      pointer-events: none;
+      z-index: 1000;
+    }
+
+    /* ── HERO ─────────────────────────────────────────────── */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 0 8vw 8vh;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Background image */
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background-image: url('assets/images/header-bg.png');
+      background-size: cover;
+      background-position: center top;
+      filter: brightness(0.45) saturate(0.7);
+      z-index: 0;
+    }
+
+    /* Gradient fade at bottom so text is readable */
+    .hero-bg::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to bottom,
+        transparent 30%,
+        rgba(17,17,16,0.6) 60%,
+        rgba(17,17,16,0.97) 100%
+      );
+    }
+
+    /* Orange line at bottom */
+    .hero::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 8vw;
+      right: 8vw;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--orange-dim), transparent);
+      z-index: 2;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero-eyebrow {
+      font-family: 'Barlow', sans-serif;
+      font-weight: 300;
+      font-size: clamp(0.7rem, 1vw, 0.85rem);
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--orange-dim);
+      margin-bottom: 1.2rem;
+      opacity: 0;
+      animation: fadeUp 0.8s ease forwards 0.2s;
+    }
+
+    .hero-name {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(5rem, 14vw, 14rem);
+      line-height: 0.9;
+      color: var(--orange-heading);
+      letter-spacing: 0.02em;
+      opacity: 0;
+      animation: fadeUp 0.9s ease forwards 0.4s;
+    }
+
+    .hero-sub {
+      font-family: 'Barlow', sans-serif;
+      font-weight: 300;
+      font-style: italic;
+      font-size: clamp(1rem, 2.2vw, 1.6rem);
+      color: var(--orange-bright);
+      margin-top: 1.2rem;
+      letter-spacing: 0.08em;
+      opacity: 0;
+      animation: fadeUp 0.9s ease forwards 0.65s;
+    }
+
+    .hero-scroll {
+      position: absolute;
+      bottom: 2.5rem;
+      right: 8vw;
+      font-size: 0.7rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--text-meta);
+      opacity: 0;
+      animation: fadeUp 1s ease forwards 1.2s;
+      z-index: 2;
+      text-align: center;
+    }
+
+    .hero-scroll::before {
+      content: '';
+      display: block;
+      width: 1px;
+      height: 3rem;
+      background: var(--orange-dim);
+      margin: 0 auto 0.8rem;
+      animation: pulse 2s ease infinite 2s;
+    }
+
+    /* ── WORKS ────────────────────────────────────────────── */
+    .works { padding: 8vw 8vw; }
+
+    .works-label {
+      font-size: 0.7rem;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--text-meta);
+      margin-bottom: 6rem;
+    }
+
+    .project {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4vw;
+      align-items: center;
+      margin-bottom: 8rem;
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+
+    .project.visible { opacity: 1; transform: translateY(0); }
+    .project.reverse { direction: rtl; }
+    .project.reverse > * { direction: ltr; }
+
+    .project-img-wrap {
+      position: relative;
+      overflow: hidden;
+      aspect-ratio: 4/3;
+      background: var(--bg-card);
+    }
+
+    .project-img-wrap::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border: 1px solid var(--orange-dim);
+      opacity: 0.4;
+      transition: opacity 0.3s ease;
+      pointer-events: none;
+    }
+
+    .project-img-wrap:hover::after { opacity: 1; }
+
+    .project-img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      filter: grayscale(30%) brightness(0.85);
+      transition: transform 0.6s ease, filter 0.4s ease;
+    }
+
+    .project-img-wrap:hover img {
+      transform: scale(1.04);
+      filter: grayscale(0%) brightness(1);
+    }
+
+    .project-link { text-decoration: none; color: inherit; display: block; }
+    .project-link:hover .project-number { color: var(--orange-bright); }
+
+    .project-info { padding: 2vw; }
+
+    .project-number {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 4rem;
+      color: var(--orange-dim);
+      line-height: 1;
+      transition: color 0.3s ease;
+      margin-bottom: 0.5rem;
+    }
+
+    .project-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(2rem, 4vw, 3.5rem);
+      color: var(--orange-heading);
+      line-height: 1;
+      margin-bottom: 1rem;
+      letter-spacing: 0.02em;
+    }
+
+    .project-desc {
+      font-size: 0.85rem;
+      line-height: 1.7;
+      color: var(--text-body);
+      max-width: 34ch;
+    }
+
+    .project-cta {
+      display: inline-block;
+      margin-top: 1.8rem;
+      font-size: 0.7rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--orange-bright);
+      border-bottom: 1px solid var(--orange-dim);
+      padding-bottom: 0.2rem;
+      transition: border-color 0.3s ease;
+    }
+
+    .project-link:hover .project-cta { border-color: var(--orange-bright); }
+
+    /* ── INSTAGRAM SECTION ────────────────────────────────── */
+    .instagram-section {
+      padding: 6vw 8vw;
+      border-top: 1px solid var(--orange-dim);
+    }
+
+    .instagram-header {
+      display: flex;
+      align-items: baseline;
+      gap: 1.5rem;
+      margin-bottom: 3rem;
+    }
+
+    .instagram-label {
+      font-size: 0.7rem;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--text-meta);
+    }
+
+    .instagram-handle {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.4rem;
+      color: var(--orange-dim);
+      text-decoration: none;
+      letter-spacing: 0.05em;
+      transition: color 0.2s ease;
+    }
+
+    .instagram-handle:hover { color: var(--orange-bright); }
+
+    .instagram-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2vw;
+    }
+
+    .ig-post {
+      position: relative;
+      aspect-ratio: 1;
+      overflow: hidden;
+      background: var(--bg-card);
+      cursor: pointer;
+      display: block;
+    }
+
+    .ig-post::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border: 1px solid var(--orange-dim);
+      opacity: 0.3;
+      transition: opacity 0.3s ease;
+      pointer-events: none;
+    }
+
+    .ig-post:hover::after { opacity: 1; }
+
+    .ig-post img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      filter: grayscale(20%) brightness(0.85);
+      transition: transform 0.5s ease, filter 0.3s ease;
+    }
+
+    .ig-post:hover img {
+      transform: scale(1.04);
+      filter: grayscale(0%) brightness(1);
+    }
+
+    .ig-post-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(17,17,16,0.85) 0%, transparent 50%);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      display: flex;
+      align-items: flex-end;
+      padding: 1.2rem;
+    }
+
+    .ig-post:hover .ig-post-overlay { opacity: 1; }
+
+    .ig-post-caption {
+      font-size: 0.75rem;
+      line-height: 1.5;
+      color: var(--text-body);
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .ig-placeholder {
+      aspect-ratio: 1;
+      background: var(--bg-card);
+      border: 1px solid var(--orange-dim);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 0.6rem;
+      text-decoration: none;
+      transition: border-color 0.2s ease;
+    }
+
+    .ig-placeholder:hover { border-color: var(--orange-bright); }
+
+    .ig-placeholder-icon {
+      font-size: 1.8rem;
+      color: var(--orange-dim);
+      transition: color 0.2s ease;
+    }
+
+    .ig-placeholder:hover .ig-placeholder-icon { color: var(--orange-bright); }
+
+    .ig-placeholder-text {
+      font-size: 0.7rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--text-meta);
+    }
+
+    .ig-token-notice {
+      margin-top: 1.5rem;
+      padding: 1rem 1.2rem;
+      border: 1px solid var(--orange-dim);
+      font-size: 0.75rem;
+      line-height: 1.7;
+      color: var(--text-meta);
+      display: none;
+    }
+
+    .ig-token-notice code {
+      color: var(--orange-dim);
+      font-family: monospace;
+    }
+
+    /* ── FOOTER ───────────────────────────────────────────── */
+    footer {
+      border-top: 1px solid var(--orange-dim);
+      padding: 2.5rem 8vw;
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--text-meta);
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 2.5rem;
+      justify-content: center;
+    }
+
+    .footer-link {
+      color: var(--text-meta);
+      text-decoration: none;
+      letter-spacing: 0.2em;
+      transition: color 0.2s ease;
+    }
+
     .footer-link:hover { color: var(--orange-bright); }
+
     .footer-right { text-align: right; }
-    @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+    /* ── ANIMATIONS ───────────────────────────────────────── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 0.3; }
+      50%       { opacity: 1; }
+    }
+
+    /* ── RESPONSIVE ───────────────────────────────────────── */
     @media (max-width: 700px) {
-      .process-grid { grid-template-columns: 1fr; }
-      .media-item.wide, .media-item:only-child { grid-column: span 1; }
-      .media-item.wide img { aspect-ratio: 4/3; }
-      .text-block { grid-template-columns: 1fr; gap: 1.5rem; }
-      footer { grid-template-columns: 1fr; gap: 1rem; text-align: center; }
+      .project, .project.reverse { grid-template-columns: 1fr; direction: ltr; }
+      .project-info { padding: 1rem 0; }
+      footer { grid-template-columns: 1fr; gap: 1.2rem; text-align: center; }
       .footer-links { justify-content: center; }
       .footer-right { text-align: center; }
     }
@@ -69,98 +447,140 @@
 </head>
 <body>
 
-  <nav>
-    <a href="../../index.html" class="nav-home">Matt Bairstow</a>
-    <a href="../../index.html" class="nav-back">← All Work</a>
-  </nav>
-
-  <section class="project-hero">
-    <p class="project-meta" id="project-meta"></p>
-    <h1 class="project-title" id="project-title"></h1>
-    <p class="project-intro" id="project-intro"></p>
-  </section>
-
-  <section class="process">
-    <p class="process-label">Process</p>
-    <div id="lead-container"></div>
-    <div class="process-grid" id="media-grid"></div>
-    <div class="text-block">
-      <h2 class="text-block-heading">About<br>the Work</h2>
-      <div class="text-block-body" id="about-body"></div>
+  <!-- ── HERO ──────────────────────────────────────────────── -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-scroll">Scroll</div>
+    <div class="hero-content">
+      <p class="hero-eyebrow">Portfolio</p>
+      <h1 class="hero-name">Matt<br>Bairstow</h1>
+      <p class="hero-sub">Maker &nbsp;/&nbsp; Musician &nbsp;/&nbsp; Technologist</p>
     </div>
   </section>
 
+  <!-- ── WORKS ─────────────────────────────────────────────── -->
+  <section class="works">
+    <p class="works-label">Selected Work</p>
+    <div id="projects-container"></div>
+  </section>
+
+  <!-- Shared project data -->
+  <script src="projects.js"></script>
+
+  <!-- ── INSTAGRAM ─────────────────────────────────────────── -->
+  <section class="instagram-section">
+    <div class="instagram-header">
+      <span class="instagram-label">Latest</span>
+      <a href="https://www.instagram.com/tactile_af" target="_blank" rel="noopener" class="instagram-handle">@tactile_af</a>
+    </div>
+
+    <div class="instagram-grid" id="ig-grid">
+      <div class="ig-loading">Loading…</div>
+      <div class="ig-loading">Loading…</div>
+    </div>
+
+    <div class="ig-token-notice" id="ig-notice">
+      <strong style="color:var(--orange-dim)">To activate the live feed:</strong><br>
+      1. Get a free Instagram Basic Display API token at
+      <a href="https://developers.facebook.com/docs/instagram-basic-display-api" target="_blank" style="color:var(--orange-dim)">developers.facebook.com</a><br>
+      2. Open <code>index.html</code> and find <code>const IG_TOKEN = '';</code><br>
+      3. Paste your token between the quotes and re-upload the file.
+    </div>
+  </section>
+
+  <!-- ── FOOTER ────────────────────────────────────────────── -->
   <footer>
     <span>Matt Bairstow</span>
     <nav class="footer-links">
       <a href="https://www.instagram.com/tactile_af" target="_blank" rel="noopener" class="footer-link">Instagram</a>
-      <a href="mailto:your@email.com" class="footer-link">Contact</a>
+      <a href="/cdn-cgi/l/email-protection#354c5a4047755058545c591b565a58" class="footer-link">Contact</a>
     </nav>
     <span class="footer-right">Maker · Musician · Technologist</span>
   </footer>
 
-  <!-- Shared project data (two levels up from project subfolder) -->
-  <script src="../../projects.js"></script>
   <script>
-    // ─────────────────────────────────────────────────────────
-    // PROJECT CONFIG — edit only this block
-    // slug must match this folder name AND the entry in /projects.js
-    // ─────────────────────────────────────────────────────────
-    const SLUG = 'project-title-one';
-
-    const ABOUT = `<p>This is where you describe the process in more depth — the materials, techniques, decisions made along the way. What problems did you encounter? What surprised you?</p>
-                   <p>A second paragraph for more conceptual detail — what does this piece mean to you? Where does it sit in your wider practice?</p>
-                   <p>A third paragraph if needed — materials list, collaborators, timeframe.</p>`;
-
-    // List media files in display order. First = lead image/video.
-    // Set wide: true to span both columns in the process grid.
-    const MEDIA = [
-      { file: 'img-01-01.jpg', wide: false },
-      { file: 'img-01-02.jpg', wide: false },
-      { file: 'img-01-03.jpg', wide: false },
-      { file: 'img-01-04.jpg', wide: true  },
-    ];
-    // ─────────────────────────────────────────────────────────
-
-    // Pull title + description from shared projects.js
-    const project = PROJECTS.find(p => p.slug === SLUG);
-    if (project) {
-      document.title = project.title + ' — Matt Bairstow';
-      document.getElementById('project-meta').textContent  = project.number + ' / Process Documentation';
-      document.getElementById('project-title').textContent = project.title;
-      document.getElementById('project-intro').textContent = project.description;
-    }
-    document.getElementById('about-body').innerHTML = ABOUT;
-
-    // Build media
+    // ── Build project grid from projects.js ─────────────────
     function isVideo(f) { return /\.(mp4|webm|ogg|mov)$/i.test(f); }
 
-    const leadContainer = document.getElementById('lead-container');
-    if (MEDIA.length > 0) {
-      const first = MEDIA[0];
-      const wrap = document.createElement('div');
-      wrap.className = 'lead-media';
-      wrap.innerHTML = isVideo(first.file)
-        ? `<video src="${first.file}" autoplay muted loop playsinline></video>`
-        : `<img src="${first.file}" alt="${project ? project.title : ''} — lead" />`;
-      leadContainer.appendChild(wrap);
-    }
+    const container = document.getElementById('projects-container');
+    PROJECTS.forEach((p, i) => {
+      const isReverse = i % 2 !== 0;
+      const imgPath   = `projects/${p.slug}/${p.leadImage}`;
+      const href      = `projects/${p.slug}/`;
 
-    const grid = document.getElementById('media-grid');
-    const rest  = MEDIA.slice(1);
-    if (rest.length === 0) {
-      grid.innerHTML = `<div class="no-media">Process images and videos will appear here</div>`;
-    } else {
-      rest.forEach((item, i) => {
-        const div = document.createElement('div');
-        div.className = 'media-item' + (item.wide ? ' wide' : '');
-        div.innerHTML = isVideo(item.file)
-          ? `<span class="media-type-badge">Video</span><video src="${item.file}" controls muted playsinline preload="metadata"></video>`
-          : `<img src="${item.file}" alt="Process ${i + 1}" loading="lazy" />`;
-        grid.appendChild(div);
+      const div = document.createElement('div');
+      div.className = 'project' + (isReverse ? ' reverse' : '');
+
+      const mediaTag = isVideo(p.leadImage)
+        ? `<video src="${imgPath}" autoplay muted loop playsinline></video>`
+        : `<img src="${imgPath}" alt="${p.title}" onerror="this.parentElement.style.background='#2a2218'" />`;
+
+      div.innerHTML = `
+        <a href="${href}" class="project-link">
+          <div class="project-img-wrap">${mediaTag}</div>
+        </a>
+        <div class="project-info">
+          <div class="project-number">${p.number}</div>
+          <h2 class="project-title">${p.title}</h2>
+          <p class="project-desc">${p.description}</p>
+          <a href="${href}" class="project-cta">View Process →</a>
+        </div>`;
+
+      container.appendChild(div);
+    });
+
+    // ── Scroll fade-in ──────────────────────────────────────
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add('visible');
       });
-    }
-  </script>
+    }, { threshold: 0.15 });
+    document.querySelectorAll('.project').forEach(el => observer.observe(el));
 
-</body>
-</html>
+    // ── Instagram feed ──────────────────────────────────────
+    // Paste your Instagram Basic Display API token here:
+    const IG_TOKEN = '';
+
+    async function loadInstagram() {
+      const grid = document.getElementById('ig-grid');
+      const notice = document.getElementById('ig-notice');
+
+      if (!IG_TOKEN) {
+        grid.innerHTML = `
+          <a href="https://www.instagram.com/tactile_af" target="_blank" rel="noopener" class="ig-placeholder">
+            <span class="ig-placeholder-icon">↗</span>
+            <span class="ig-placeholder-text">@tactile_af</span>
+          </a>
+          <a href="https://www.instagram.com/tactile_af" target="_blank" rel="noopener" class="ig-placeholder">
+            <span class="ig-placeholder-icon">↗</span>
+            <span class="ig-placeholder-text">View on Instagram</span>
+          </a>`;
+        notice.style.display = 'block';
+        return;
+      }
+
+      try {
+        const res = await fetch(
+          `https://graph.instagram.com/me/media?fields=id,caption,media_type,media_url,thumbnail_url,permalink&limit=2&access_token=${IG_TOKEN}`
+        );
+        const data = await res.json();
+        if (!data.data || data.error) throw new Error(data.error?.message || 'API error');
+
+        grid.innerHTML = data.data.map(post => {
+          const imgSrc = post.media_type === 'VIDEO' ? post.thumbnail_url : post.media_url;
+          const caption = (post.caption || '').replace(/</g, '&lt;');
+          return `
+            <a href="${post.permalink}" target="_blank" rel="noopener" class="ig-post">
+              <img src="${imgSrc}" alt="Instagram post" loading="lazy" />
+              <div class="ig-post-overlay">
+                <p class="ig-post-caption">${caption}</p>
+              </div>
+            </a>`;
+        }).join('');
+
+      } catch (err) {
+        grid.innerHTML = `
+          <a href="https://www.instagram.com/tactile_af" target="_blank" rel="noopener"
+             class="ig-placeholder" style="grid-column:span 2;aspect-ratio:4/1">
+            <span class="ig-placeholder-icon">↗</span>
+            <span class="ig-placeholder-text">Visit @tactile_af on Instag
