@@ -50,7 +50,7 @@ const PROJECTS = [
     number:      '06',
     slug:        'LED-Cloud-Sticks',
     title:       'LED Cloud Sticks',
-    description: 'Colourful and bright light tubes.',
+    description: 'Versatile stage lighting',
     leadImage:   'img-06-01.jpg',
   },
 ];
