@@ -29,7 +29,7 @@ const PROJECTS = [
     number:      '03',
     slug:        'Trap-Base',
     title:       'Trap Base',
-    description: 'A short line or two describing the work.',
+    description: 'Festival Abode... maybe it’s a trap?',
     leadImage:   'img-03-01.jpg',
   },
   {
