@@ -157,7 +157,7 @@
     } else {
       rest.forEach((item, i) => {
         const div = document.createElement('div');
-        div.className = 'media-item' + (item.wide ? ' wide' : '');
+        div.className = 'media-item' + (item.wide ? ' wide' : 'false');
         div.innerHTML = isVideo(item.file)
           ? `<span class="media-type-badge">Video</span><video src="${item.file}" controls muted playsinline preload="metadata"></video>`
           : `<img src="${item.file}" alt="Process ${i + 1}" loading="lazy" />`;
